@@ -1,0 +1,23 @@
+{
+    "databaseSettings": {
+      "metadataPath":"",
+      "musicMainFolder": "",
+      "xmlMainFolder": "",
+      "musicAdditionalFolder": "",
+      "xmlAdditionalFolder": "",
+      "videosMainFolder": ""
+    },
+    "playbackSettings": {
+      "delayBetweenSongs": 3
+    },
+    "torrentSettings": {
+      "listeningPort": "4000",
+      "torrentFilePath": "",
+      "downloadFolder": ""
+    },
+    "logsSettings": {
+      "isLoggingEnabled": true,
+      "logFilePath": "",
+      "tagsToTrack": ["BOOTSTRAP", "MAIN", "ERROR", "WARNING", "Launch date time", "Main database loaded", "Custom database loaded", "Searched texts", "Added to queue", "Track started to play", "Pitch switched", "Queue cleared", "Started to download torrent update", "Finished downloading updates", "Errors, exceptions"]
+    }
+  }
