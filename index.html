@@ -6,6 +6,26 @@
     <title>Unity WebGL Player | karaokebox</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+      <!-- Firebase compat scripts (must load before Unity loader) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9If7MobAV3tnkij1taLHgV1cfMyFhgCc",
+      authDomain: "karaokebox-acab1.firebaseapp.com",
+      databaseURL: "https://karaokebox-acab1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "karaokebox-acab1",
+      storageBucket: "karaokebox-acab1.appspot.com",
+      messagingSenderId: "284368336109",
+      appId: "1:284368336109:web:55f029d9666c0221c648e4",
+      measurementId: "G-KCV49PNMX9"
+    };
+    if (!window.firebase || !firebase.apps || !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+  </script>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -57,11 +77,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/wglkaraokebox.loader.js";
+      var loaderUrl = buildUrl + "/wglkaraokebox016.loader.js";
       var config = {
-        dataUrl: buildUrl + "/wglkaraokebox.data.unityweb",
-        frameworkUrl: buildUrl + "/wglkaraokebox.framework.js.unityweb",
-        codeUrl: buildUrl + "/wglkaraokebox.wasm.unityweb",
+        dataUrl: buildUrl + "/wglkaraokebox016.data.unityweb",
+        frameworkUrl: buildUrl + "/wglkaraokebox016.framework.js.unityweb",
+        codeUrl: buildUrl + "/wglkaraokebox016.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "shapesandsounds",
         productName: "karaokebox",
@@ -100,20 +120,25 @@
 
       loadingBar.style.display = "block";
 
+      var unityInstance = null;
+      window.unityInstance = null
+
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-              }).catch((message) => {
-                alert(message);
-              });
-            };
+            }).then((instance) => {
+              window.unityInstance = instance;
+              unityInstance = instance;
+              loadingBar.style.display = "none";
+              fullscreenButton.onclick = () => {
+                instance.SetFullscreen(1);
+              };
+            }).catch((message) => {
+              alert(message);
+            });
+          };
 
       document.body.appendChild(script);
 
